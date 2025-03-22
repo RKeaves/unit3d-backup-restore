@@ -172,6 +172,18 @@ Copy your backup file from its location (e.g., `.../storage/backups/UNT3D`) to t
 cp /var/www/html/storage/backups/UNIT3D/\[UNIT3D\]2025-03-05-00-00-51.zip ./
 ```
 
+Tip: Instead of typing the full file name, copy and paste the directory path (e.g., `.../backups/UNIT3D/\[UNIT3D`), then press the Tab key to auto-complete the backup file name:
+
+```bash
+cp /var/www/html/storage/backups/UNIT3D/\[UNIT3D
+```
+> [!NOTE]
+> Note: Remember to add ./ at the end of the command to specify the current directory as the destination.
+> 
+For example: `cp /var/www/html/storage/backups/UNIT3D/\[UNIT3D\]2025-03-22-17-29-59.zip ./`
+
+
+
 ### 3. Extract the Backup File Using 7z
 Use `7z` to extract the encrypted backup file. When prompted, enter your `APP_KEY`. The password prompt will not echo your input:
 
