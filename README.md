@@ -111,7 +111,7 @@ When prompted during extraction, enter the password (note: your input will not b
 base64:bT70DC4Ck7taYqP6ugqKIYbAbiEFbgECSdc03MwtXg=
 ```
 
-### 4. Unzip the Extracted Archive (If Needed)
+### 4. Unzip the Extracted Archive
 If the extraction process produces a standard ZIP file (e.g., `backup.zip`), extract it with:
 
 ```bash
