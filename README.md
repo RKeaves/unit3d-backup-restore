@@ -61,6 +61,7 @@ php artisan list --raw
 > This ensures that all commands operate on the correct environment.
 
 
+If you are already in the correct directory, you only need to execute: `php artisan list --raw`
 
 ## Maintenance Mode
 
