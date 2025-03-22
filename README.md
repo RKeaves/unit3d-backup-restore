@@ -82,7 +82,7 @@ mkdir ~/tempBackup
 cd ~/tempBackup
 ```
 
-Copy the Backup File to the Temporary Directory:
+Copy the Backup File, located in: `.../storage/backups/UNT3D`, to the Temporary Directory:
 
 Adjust the file name and path if necessary.
 
