@@ -12,7 +12,7 @@ This guide explains how to restore a UNIT3D backup on your server. It covers ins
 
 ## Built-In Backups
 
-Built-in backups, located in `.../storage/backups/UNT3D`, offer an efficient way to migrate your development codebase to production using Git. Simply pick one of the three most recent backups, copy it to your home directory, and retrieve your site master key from your `.env` file (the `APP_KEY`). Next, uncompress the backup using `p7zip` (you'll be prompted for the key) and extract any additional ZIP files (typically containing files and a database). Finally, restore the files to your server and manually import the database to ensure your server runs only the committed code.
+Built-in backups, located in `.../storage/backups/UNT3D`, offer an efficient way to migrate your development codebase to production by leveraging these backups directly. Simply pick one of the three most recent backups, copy it to your home directory, and retrieve your site master key from your `.env` file (the `APP_KEY`). Next, uncompress the backup using `p7zip` (you'll be prompted for the key) and extract any additional ZIP files (typically containing files and a database). Finally, restore the files to your server and manually import the database to ensure your server runs only the committed code.
 
 ### Create a Backup
 To run a backup of your UNIT3D installation, navigate to your project directory and execute the Artisan backup command:
