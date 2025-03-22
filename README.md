@@ -133,23 +133,71 @@ After extraction, your backup files will be available in the temporary folder. N
 Copy the Entire html Folder:
 
 ```bash
-sudo cp -rf ./var/www/html /var/www/html
+sudo cp -rv ~/tempBackup/var/www/html/* /var/www/html/
 ```
 
 Alternatively, Depending on Your Setup, You Might Need to Copy at a Higher Level:
 
 ```bash
-sudo cp -rf ./var/www /var/www
+sudo cp -rv ~/tempBackup/var/www/* /var/www/
 ```
 
 Or Restore Specific Files:
 
 ```bash
-sudo -u www-data cp -rf ./var/www/html/someFile /var/www/html/someFile
+sudo -u www-data cp -rf ./var/www/html/someFile/* /var/www/html/someFile/
 ```
 
 Tip:
 Choose the command that best fits your restoration needs. If you only need to restore specific files, copy only those.
+
+---
+
+
+## Step 4.1: Alternate Restoration Method Using entire /var/www folder! 
+If you prefer an alternative method, you can create a zipped backup of your current www folder, then restore it from the zip archive. Follow these steps:
+
+### 1. Create a Zip Archive of the www Folder
+First, create a zipped archive of your entire /var/www folder and save it to your temporary backup directory:
+
+
+
+```bash
+sudo zip -r ~/tempBackup/www_backup_$(date +%Y%m%d%H%M%S).zip /var/www
+```
+
+This command compresses the entire /var/www folder into a zip file named with a timestamp.
+
+### 2. Unzip the Archive into a New Restoration Folder
+
+Create a new folder (e.g., restore_www_TIMESTAMP) in your temporary backup directory and unzip the archive into it:
+
+The folder should be named following the format restore_www_TIMESTAMP, where TIMESTAMP corresponds to the timestamp in your backup file.
+
+> [!NOTE]
+> **Important:** Replace `$(date +%Y%m%d%H%M%S)` with the actual timestamp from your backup file.
+> 
+> For example, if your backup file is named `www_backup_20250322062714.zip`, then set `TIMESTAMP=20250322062714`.
+
+
+
+```bash
+TIMESTAMP=$(date +%Y%m%d%H%M%S)
+mkdir ~/tempBackup/restore_www_$TIMESTAMP
+unzip ~/tempBackup/www_backup_$TIMESTAMP.zip -d ~/tempBackup/restore_www_$TIMESTAMP
+```
+
+Note: Ensure that the same timestamp is used for both creating and unzipping the archive. Alternatively, you can manually specify a consistent name.
+
+### 3. Copy the Restored Files to the Correct Location
+Once you have verified the restored files in the new folder, copy the entire contents back to your live directory:
+
+```bash
+TIMESTAMP=$(date +%Y%m%d%H%M%S)
+sudo cp -a ~/tempBackup/restore_www_$TIMESTAMP/. /var/www/
+```
+
+The -a flag preserves file permissions, ownership, and timestamps.
 
 ---
 
@@ -170,6 +218,30 @@ Explanation:
 chown changes the owner to www-data, which is typically the web server user.
 chmod commands set the proper permissions: files are set to 664 and directories to 775.
 The additional commands ensure that the storage and bootstrap/cache directories have the correct group and permissions for writing.
+
+### 5.1 Optional: Reinstall Dependencies and Rebuild Assets
+
+If your project relies on Node.js dependencies and a build step (using Bun), you can use the following command.
+
+Run this only if you do not have a valid node_modules folder or if your assets require rebuilding.
+
+Note: Running this command with sudo may cause permission issues (such as EACCES errors), so if possible, consider running it as a non-root user or ensure that the permissions are correctly set after installation.
+
+When to Use:
+Use the optional command if your project uses Bun for dependency management and asset building and if you need to ensure that your dependencies and built assets are updated. 
+
+> [!NOTE]
+> If your backup already contains a valid node_modules folder with pre-built assets, this step can be skipped to avoid potential permission issues.
+
+Optional Rebuild Command:
+
+```bash
+sudo rm -rf node_modules && sudo bun install && sudo bun run build
+```
+
+sudo rm -rf node_modules: Removes the current Node.js dependencies to allow a fresh install.
+sudo bun install: Reinstalls all dependencies as specified in your project’s configuration.
+sudo bun run build: Runs the build process to compile or bundle assets as needed.
 
 ---
 
