@@ -169,7 +169,7 @@ cd ~/tempBackup
 Copy your backup file from its location (e.g., `.../storage/backups/UNT3D`) to the temporary directory. Adjust the file name and path as needed:
 
 ```bash
-cp /var/www/html/storage/backups/UNIT3D/\[UNIT3D\]2025-03-05-00-00-51.zip ./
+cp /var/www/html/storage/backups/UNIT3D/\[UNIT3D\]2025-03-22-17-29-59.zip ./
 ```
 
 Tip: Instead of typing the full file name, copy and paste the directory path (e.g., `.../backups/UNIT3D/\[UNIT3D`), then press the Tab key to auto-complete the backup file name:
@@ -188,7 +188,7 @@ For example: `cp /var/www/html/storage/backups/UNIT3D/\[UNIT3D\]2025-03-22-17-29
 Use `7z` to extract the encrypted backup file. When prompted, enter your `APP_KEY`. The password prompt will not echo your input:
 
 ```bash
-7z x \[UNIT3D\]2025-03-05-00-00-51.zip
+7z x \[UNIT3D\]2025-03-22-17-29-59.zip
 ```
 
 #### Example: APP_KEY Usage
