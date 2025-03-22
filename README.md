@@ -75,36 +75,55 @@ You will use this key when extracting the backup.
 ---
 
 ## Step 3: Uncompress the Backup
-Create a Temporary Directory for the Backup:
+
+### 1. Create a Temporary Directory
+Create a temporary directory to work in and navigate into it:
 
 ```bash
 mkdir ~/tempBackup
 cd ~/tempBackup
 ```
 
-Copy the Backup File, located in: `.../storage/backups/UNT3D`, to the Temporary Directory:
-
-Adjust the file name and path if necessary.
+### 2. Copy the Backup File
+Copy your backup file from its location (e.g., `.../storage/backups/UNT3D`) to the temporary directory. Adjust the file name and path as needed:
 
 ```bash
 cp /var/www/html/storage/backups/UNIT3D/\[UNIT3D\]2025-03-05-00-00-51.zip ./
 ```
 
-Extract the Backup File with 7z:
-
-When prompted, enter the APP_KEY you retrieved earlier.
+### 3. Extract the Backup File Using 7z
+Use `7z` to extract the encrypted backup file. When prompted, enter your `APP_KEY`. The password prompt will not echo your input:
 
 ```bash
 7z x \[UNIT3D\]2025-03-05-00-00-51.zip
 ```
 
-If the Archive Contains a ZIP File, Unzip It:
+#### Example: APP_KEY Usage
+If your `.env` file contains:
+
+```bash
+APP_KEY=base64:bT70DC4Ck7taYqP6ugqKIYbAbiEFbgECSdc03MwtXg=
+```
+
+When prompted during extraction, enter the password (note: your input will not be echoed):
+
+```bash
+base64:bT70DC4Ck7taYqP6ugqKIYbAbiEFbgECSdc03MwtXg=
+```
+
+### 4. Unzip the Extracted Archive (If Needed)
+If the extraction process produces a standard ZIP file (e.g., `backup.zip`), extract it with:
 
 ```bash
 unzip backup.zip
 ```
 
-The 7z command will extract the encrypted file using your APP_KEY. After extraction, if you have a standard ZIP file (named backup.zip in this example), you can unzip it to get the backup files.
+---
+
+**Explanation:**  
+- The `7z` command decrypts and extracts the backup using your `APP_KEY`.  
+- If the output is a ZIP file, `unzip` will further extract the backup contents.
+
 
 ---
 
