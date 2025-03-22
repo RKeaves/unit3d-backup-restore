@@ -23,6 +23,15 @@ cd /var/www/html
 php artisan backup:run
 ```
 
+### Viewing Backup List
+
+To view available backups, run:
+
+```bash
+cd /var/www/html
+php artisan backup:list
+```
+
 ---
 
 ## Maintenance Mode
@@ -199,7 +208,14 @@ Choose the command that best fits your restoration needs. If you only need to re
 
 
 ## Step 4.1: Alternate Restoration Method Using entire /var/www folder! 
+
 If you prefer an alternative method, you can create a zipped backup of your current www folder, then restore it from the zip archive. Follow these steps:
+
+
+<div style="border: 2px solid #e74c3c; background-color: #f9e6e6; padding: 10px; border-radius: 5px; margin: 15px 0;">
+  <strong>🚨 READ:</strong> Be careful, the steps below are an alternative method for backing up the entire <code>/var/www</code> folder! Only continue if you understand what you are doing.
+</div>
+
 
 ### 1. Create a Zip Archive of the www Folder
 First, create a zipped archive of your entire /var/www folder and save it to your temporary backup directory:
@@ -265,7 +281,7 @@ The additional commands ensure that the storage and bootstrap/cache directories 
 
 ### 5.1 Optional: Reinstall Dependencies and Rebuild Assets
 
-If your project relies on Node.js dependencies and a build step (using Bun), you can use the following command.
+If reinstalling Node.js dependencies and running a build process is part of your backup recovery, then execute the command below.
 
 Run this only if you do not have a valid node_modules folder or if your assets require rebuilding.
 
