@@ -1,16 +1,57 @@
 # UNIT3D Backup Restoration Tutorial
 
+![REQUIRED](https://img.shields.io/badge/REQUIRED-UNIT3D%20v9.0.1%20PHP%208.4-red)
+
 _Whether you've made an error and need to restore from a backup, or you're just looking to learn something new, this tutorial has got you covered._
 
 This guide explains how to restore a UNIT3D backup on your server. It covers installing required tools, uncompressing the backup using your app key, copying files to their correct locations, fixing file permissions, and resetting caches with PHP Artisan.
 
-> **Note:** This tutorial assumes you have already created a backup using PHP Artisan. We also assume you are familiar with basic terminal commands and have sudo privileges on your system.
+<div style="border: 2px solid #e74c3c; background-color: #f9e6e6; padding: 10px; border-radius: 5px; margin: 15px 0;">
+  <strong>🚨 READ:</strong> This tutorial was tested on <strong>UNIT3D v9.0.1</strong> running on <strong>PHP 8.4</strong>. Adjustments may be necessary for other versions.
+</div>
 
-## Using Built-In Backups
+## Built-In Backups
 
 Built-in backups, located in `.../storage/backups/UNT3D`, offer an efficient way to migrate your development codebase to production using Git. Simply pick one of the three most recent backups, copy it to your home directory, and retrieve your site master key from your `.env` file (the `APP_KEY`). Next, uncompress the backup using `p7zip` (you'll be prompted for the key) and extract any additional ZIP files (typically containing files and a database). Finally, restore the files to your server and manually import the database to ensure your server runs only the committed code.
 
+### Create a Backup
+To run a backup of your UNIT3D installation, navigate to your project directory and execute the Artisan backup command:
+
+
+```bash
+cd /var/www/html
+php artisan backup:run
+```
+
 ---
+
+## Maintenance Mode
+
+Before making any modifications or performing a restoration, it is **strongly recommended** to put your site into maintenance mode. This will prevent users from encountering errors or inconsistencies during the process.
+
+### Enable Maintenance Mode
+
+Navigate to your project directory and run the following command:
+
+```bash
+cd /var/www/html
+php artisan down
+```
+
+This command puts your site into maintenance mode.
+
+### Disable Maintenance Mode
+
+Once your modifications or restoration steps are complete, bring your site back up by running:
+
+```bash
+cd /var/www/html
+php artisan up
+```
+This command restores normal site operations.
+
+_Ensure that all critical operations (such as backups or restorations) are completed before bringing your site out of maintenance mode._
+
 
 ## Table of Contents
 
@@ -34,6 +75,9 @@ Built-in backups, located in `.../storage/backups/UNT3D`, offer an efficient way
   - A text editor (e.g., `nano` or `micro`)
 - **Backup File:** A UNIT3D backup file (for example: `[UNIT3D]2025-03-05-00-00-51.zip`) stored in your UNIT3D backup folder.
 - **App Key:** You need your `APP_KEY` from the `.env` file, which is used as the decryption password when extracting the backup.
+
+> **Note:** This tutorial was tested on **UNIT3D v9.0.1** running on **PHP 8.4**. If you are using a different version, some commands and steps may require adjustments.
+
 
 ---
 
@@ -187,7 +231,7 @@ mkdir ~/tempBackup/restore_www_$TIMESTAMP
 unzip ~/tempBackup/www_backup_$TIMESTAMP.zip -d ~/tempBackup/restore_www_$TIMESTAMP
 ```
 
-Note: Ensure that the same timestamp is used for both creating and unzipping the archive. Alternatively, you can manually specify a consistent name.
+> Ensure that the same timestamp is used for both creating and unzipping the archive. Alternatively, you can manually specify a consistent name.
 
 ### 3. Copy the Restored Files to the Correct Location
 Once you have verified the restored files in the new folder, copy the entire contents back to your live directory:
@@ -215,9 +259,9 @@ sudo chmod -R ug+rwx storage bootstrap/cache
 
 Explanation:
 
-chown changes the owner to www-data, which is typically the web server user.
+_chown changes the owner to www-data, which is typically the web server user.
 chmod commands set the proper permissions: files are set to 664 and directories to 775.
-The additional commands ensure that the storage and bootstrap/cache directories have the correct group and permissions for writing.
+The additional commands ensure that the storage and bootstrap/cache directories have the correct group and permissions for writing._
 
 ### 5.1 Optional: Reinstall Dependencies and Rebuild Assets
 
@@ -255,9 +299,9 @@ sudo php artisan set:all_cache && sudo systemctl restart php8.4-fpm && sudo php 
 
 Explanation:
 
-php artisan set:all_cache clears and rebuilds your application's cache.
+_php artisan set:all_cache clears and rebuilds your application's cache.
 Restarting PHP-FPM ensures that any changes are recognized by the PHP process.
-Restarting the queue allows any queued jobs to continue without issues.
+Restarting the queue allows any queued jobs to continue without issues._
 
 
 ## Troubleshooting
