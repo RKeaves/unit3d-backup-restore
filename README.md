@@ -34,6 +34,34 @@ php artisan backup:list
 
 ---
 
+## What is PHP Artisan?
+
+PHP Artisan is the command-line interface (CLI) tool that comes with Laravel (and by extension, many Laravel-based applications like UNIT3D). Since UNIT3D is built on Laravel, it leverages PHP Artisan to perform a wide range of tasks essential for managing and maintaining the application. These tasks include:
+
+- Running database migrations and seeding
+- Clearing and caching configuration, routes, and views
+- Managing queues and scheduled tasks
+- Generating boilerplate code for controllers, models, and more
+
+### Why View All Commands?
+
+Using the following command, you can get a raw list of all available Artisan commands. This list is particularly useful for understanding the full capabilities of PHP Artisan and for troubleshooting or automating common tasks in UNIT3D:
+
+```bash
+cd /var/www/html
+php artisan list --raw
+```
+
+> **NOTE:** Make sure you are in the project directory before running any commands:
+> 
+> ```bash
+> cd /var/www/html
+> ```
+> 
+> This ensures that all commands operate on the correct environment.
+
+
+
 ## Maintenance Mode
 
 Before making any modifications or performing a restoration, it is **strongly recommended** to put your site into maintenance mode. This will prevent users from encountering errors or inconsistencies during the process.
