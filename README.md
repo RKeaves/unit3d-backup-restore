@@ -30,7 +30,6 @@ Built-in backups, located in `.../storage/backups/UNT3D`, offer an efficient way
 
 ## Prerequisites
 
-- **Operating System:** A Linux distribution (e.g., Ubuntu)
 - **User Privileges:** Sudo access is required for installing packages and changing file permissions.
 - **Tools:**  
   - [7-Zip](https://www.7-zip.org/) (for extracting encrypted backups)  
@@ -44,6 +43,7 @@ Built-in backups, located in `.../storage/backups/UNT3D`, offer an efficient way
 ## Step 1: Install Required Tools
 
 First, ensure you have the tools needed to extract the backup.
+
 ```bash
 cd ~
 sudo apt update
@@ -186,6 +186,9 @@ Below are some common issues and their suggested solutions:
 
 
 
+## Acknowledgements
+
+This project was made possible thanks to airclay aka [ericlay](https://github.com/ericlay).
 
 
 
