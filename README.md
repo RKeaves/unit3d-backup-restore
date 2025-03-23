@@ -315,7 +315,7 @@ TIMESTAMP=$(date +%Y%m%d%H%M%S)
 sudo cp -a ~/tempBackup/restore_www_$TIMESTAMP/var/www/html/. /var/www/html/
 ```
 
-The -a flag preserves file permissions, ownership, and timestamps.
+_The -a flag preserves file permissions, ownership, and timestamps._
 
 
 > [!NOTE]
