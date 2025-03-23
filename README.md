@@ -100,8 +100,23 @@ This command restores normal site operations.
 
 _Ensure that all critical operations (such as backups or restorations) are completed before bringing your site out of maintenance mode._
 
+---
 
-## Table of Contents
+
+## Tutorial Wrap-Up
+
+- **Install Required Tools:** Set up 7-Zip, unzip, and other utilities.
+- **Retrieve Your Application Key:** Extract your `APP_KEY` from the `.env` file.
+- **Uncompress the Backup:** Use 7-Zip to decrypt and extract your UNIT3D backup files.
+- **Restore Files:** Copy the restored files to your live environment using proper commands.
+- **Fix File Permissions:** Ensure correct ownership and permissions with `chown`, `chmod`, and related commands.
+- **Reset Caches:** Clear caches and restart PHP Artisan and PHP-FPM to finalize restoration.
+
+_This tutorial is crafted for anyone looking to restore a backup on UNIT3D, manage backup recovery for a UNIT3D private tracker, or implement PHP Laravel backup restoration. If you've been searching for solutions like "restore backup UNIT3D," "PHP Laravel backup restoration," "UNIT3D private tracker restore," or "backup recovery for UNIT3D," this guide offers practical and detailed instructions to help you._
+
+---
+
+## Index
 
 - [Prerequisites](#prerequisites)
 - [Step 1: Install Required Tools](#step-1-install-required-tools)
@@ -417,7 +432,6 @@ Below are some common issues and their suggested solutions:
 | Missing Files              | Re-run `rsync` with the `--checksum` option           |
 | Permission Denied          | Reapply ACL permissions                               |
 | Queue Workers Inactive     | Restart all workers with `sudo supervisorctl restart all` |
-
 
 
 ## Acknowledgements
