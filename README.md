@@ -6,9 +6,19 @@ _Whether you've made an error and need to restore from a backup, or you're just 
 
 This guide explains how to restore a UNIT3D backup on your server. It covers installing required tools, uncompressing the backup using your app key, copying files to their correct locations, fixing file permissions, and resetting caches with PHP Artisan.
 
+---
+
 <div style="border: 2px solid #e74c3c; background-color: #f9e6e6; padding: 10px; border-radius: 5px; margin: 15px 0;">
   <strong>🚨 READ:</strong> This tutorial was tested on <strong>UNIT3D v9.0.1</strong> running on <strong>PHP 8.4</strong>. Adjustments may be necessary for other versions.
 </div>
+
+---
+
+<div style="border: 2px solid #e74c3c; background-color: #f9e6e6; padding: 10px; border-radius: 5px; margin: 15px 0;">
+  <strong>📢 Advisory: </strong> Prior to executing this backup restoration procedure on live or sensitive data, it is strongly recommended that you first test the process on a non-critical server or with non-essential files. This step helps you understand the process and minimize risks.
+</div>
+
+---
 
 ## Built-In Backups
 
