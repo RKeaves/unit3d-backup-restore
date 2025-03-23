@@ -302,10 +302,38 @@ Once you have verified the restored files in the new folder, copy the entire con
 
 ```bash
 TIMESTAMP=$(date +%Y%m%d%H%M%S)
-sudo cp -a ~/tempBackup/restore_www_$TIMESTAMP/. /var/www/
+sudo cp -a ~/tempBackup/restore_www_$TIMESTAMP/var/www/html/. /var/www/html/
 ```
 
 The -a flag preserves file permissions, ownership, and timestamps.
+
+
+> [!NOTE]
+> **Restoration Command Template**
+> ```bash
+> sudo cp -a ~/tempBackup/restore_www_$TIMESTAMP/var/www/html/. /var/www/html/
+> ```
+> 
+> **Key Parameters** (adjust accordingly):
+> - `$TIMESTAMP`: Timestamp from your backup filename (e.g., `20250323064937`).
+> The folder `/var/www/html/` is used as the default project folder in this documentation.
+>
+> If you want to backup a different folder, simply replace `/var/www/html/` with the path to your desired folder in all the commands.
+> 
+> **Example for /html restoration**:
+> ```bash
+> sudo cp -a ~/tempBackup/restore_www_20250323064937/var/www/html/. /var/www/html/
+> ```
+> 
+> Before applying any commands, double-check that your backup file contains the correct file structure (e.g., `/var/www/html/` in your backup ZIP) and that your live folder (e.g., `your-target-dir/`) matches your intended deployment path.
+> 
+> **Tip**: Preview structure first:
+> ```bash
+> unzip -l www_backup_$TIMESTAMP.zip | grep "var/www/html"
+> ```
+
+
+
 
 ---
 
