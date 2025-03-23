@@ -252,22 +252,30 @@ Choose the command that best fits your restoration needs. If you only need to re
 
 If you prefer an alternative method, you can create a zipped backup of your current www folder, then restore it from the zip archive. Follow these steps:
 
+---
 
 <div style="border: 2px solid #e74c3c; background-color: #f9e6e6; padding: 10px; border-radius: 5px; margin: 15px 0;">
   <strong>🚨 READ:</strong> Be careful, the steps below are an alternative method for backing up the entire <code>/var/www</code> folder! Only continue if you understand what you are doing.
 </div>
 
+---
+
+**Note:** If you haven't already created a temporary backup directory, run:
+```bash
+mkdir ~/tempBackup
+```
+
 
 ### 1. Create a Zip Archive of the www Folder
-First, create a zipped archive of your entire /var/www folder and save it to your temporary backup directory:
-
-
+First, create a zipped archive of your entire `/var/www` folder and save it to your temporary backup directory:
 
 ```bash
 sudo zip -r ~/tempBackup/www_backup_$(date +%Y%m%d%H%M%S).zip /var/www
 ```
 
-This command compresses the entire /var/www folder into a zip file named with a timestamp.
+This command compresses your entire `/var/www` folder into a zip file and saves it in your temporary backup directory (`~/tempBackup`).
+
+The file will be named with a timestamp for reference. For example: `www_backup_20250322062714.zip`
 
 ### 2. Unzip the Archive into a New Restoration Folder
 
@@ -279,7 +287,6 @@ The folder should be named following the format restore_www_TIMESTAMP, where TIM
 > **Important:** Replace `$(date +%Y%m%d%H%M%S)` with the actual timestamp from your backup file.
 > 
 > For example, if your backup file is named `www_backup_20250322062714.zip`, then set `TIMESTAMP=20250322062714`.
-
 
 
 ```bash
