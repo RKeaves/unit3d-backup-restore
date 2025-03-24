@@ -2,6 +2,10 @@
 
 ![REQUIRED](https://img.shields.io/badge/REQUIRED-UNIT3D%20v9.0.1%20PHP%208.4-red)
 
+<p align="center">
+  <img src="https://ptpimg.me/6o8x8j.png" alt="Centered Image" style="width: 12%;">
+</p>
+
 _Whether you've made an error and need to restore from a backup, or you're just looking to learn something new, this tutorial has got you covered._
 
 This guide explains how to restore a UNIT3D backup on your server. It covers installing required tools, uncompressing the backup using your app key, copying files to their correct locations, fixing file permissions, and resetting caches with PHP Artisan.
