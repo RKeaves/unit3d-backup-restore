@@ -109,7 +109,7 @@ _Ensure that all critical operations (such as backups or restorations) are compl
 
 ## Tutorial Wrap-Up
 
-- **Install Required Tools:** Set up 7-Zip, unzip, and other utilities.
+- **Install Required Tools:** Set up 7-Zip and other utilities.
 - **Retrieve Your Application Key:** Extract your `APP_KEY` from the `.env` file.
 - **Uncompress the Backup:** Use 7-Zip to decrypt and extract your UNIT3D backup files.
 - **Restore Files:** Copy the restored files to your live environment using proper commands.
@@ -137,8 +137,7 @@ _This tutorial is crafted for anyone looking to restore a backup on UNIT3D, mana
 
 - **User Privileges:** Sudo access is required for installing packages and changing file permissions.
 - **Tools:**  
-  - [7-Zip](https://www.7-zip.org/) (for extracting encrypted backups)  
-  - `unzip` (for handling ZIP files)  
+  - [7-Zip](https://www.7-zip.org/) (for extracting encrypted backups and handling ZIP files)  
   - A text editor (e.g., `nano` or `micro`)
 - **Backup File:** A UNIT3D backup file (for example: `[UNIT3D]2025-03-05-00-00-51.zip`) stored in your UNIT3D backup folder.
 - **App Key:** You need your `APP_KEY` from the `.env` file, which is used as the decryption password when extracting the backup.
@@ -155,11 +154,10 @@ First, ensure you have the tools needed to extract the backup.
 ```bash
 cd ~
 sudo apt update
-sudo apt install p7zip-full unzip -y
+sudo apt install p7zip-full -y
 ```
 
-p7zip-full is used for handling 7z archives, which might be used to compress your backup files.
-unzip is used for handling ZIP files.
+p7zip-full is used for handling compatibility and encryption issues when uncompressing the backup archives.
 
 
 ---
@@ -238,14 +236,14 @@ base64:bT70DC4Ck7taYqP6ugqKIYbAbiEFbgECSdc03MwtXg=
 If the extraction process produces a standard ZIP file (e.g., `backup.zip`), extract it with:
 
 ```bash
-unzip backup.zip
+7z x backup.zip
 ```
 
 ---
 
 **Explanation:**  
-- The `7z` command decrypts and extracts the backup using your `APP_KEY`.  
-- If the output is a ZIP file, `unzip` will further extract the backup contents.
+- The first `7z` command decrypts and extracts the outer backup archive using your `APP_KEY`.  
+- The second `7z` command handles the inner ZIP file to further extract the backup contents.
 
 
 ---
@@ -256,19 +254,19 @@ After extraction, your backup files will be available in the temporary folder. N
 Copy the Entire html Folder:
 
 ```bash
-sudo cp -rv ~/tempBackup/var/www/html/* /var/www/html/
+sudo cp -rv ~/tempBackup/var/www/html /var/www
 ```
 
 Alternatively, Depending on Your Setup, You Might Need to Copy at a Higher Level:
 
 ```bash
-sudo cp -rv ~/tempBackup/var/www/* /var/www/
+sudo cp -rv ~/tempBackup/var/www /var
 ```
 
 Or Restore Specific Files:
 
 ```bash
-sudo -u www-data cp -rf ./var/www/html/someFile/* /var/www/html/someFile/
+sudo -u www-data cp -rf ./var/www/html/someDirectory/someFile.php /var/www/html/someDirectory/someFile.php
 ```
 
 Tip:
@@ -299,7 +297,7 @@ mkdir ~/tempBackup
 First, create a zipped archive of your entire `/var/www` folder and save it to your temporary backup directory:
 
 ```bash
-sudo zip -r ~/tempBackup/www_backup_$(date +%Y%m%d%H%M%S).zip /var/www
+sudo 7za a -tzip -r ~/tempBackup/www_backup_$(date +%Y%m%d%H%M%S).zip /var/www
 ```
 
 This command compresses your entire `/var/www` folder into a zip file and saves it in your temporary backup directory (`~/tempBackup`).
@@ -321,7 +319,7 @@ The folder should be named following the format restore_www_TIMESTAMP, where TIM
 ```bash
 TIMESTAMP=$(date +%Y%m%d%H%M%S)
 mkdir ~/tempBackup/restore_www_$TIMESTAMP
-unzip ~/tempBackup/www_backup_$TIMESTAMP.zip -d ~/tempBackup/restore_www_$TIMESTAMP
+7z x ~/tempBackup/www_backup_$TIMESTAMP.zip -d ~/tempBackup/restore_www_$TIMESTAMP
 ```
 
 > Ensure that the same timestamp is used for both creating and unzipping the archive. Alternatively, you can manually specify a consistent name.
@@ -358,7 +356,7 @@ _The -a flag preserves file permissions, ownership, and timestamps._
 > 
 > **Tip**: Preview structure first:
 > ```bash
-> unzip -l www_backup_$TIMESTAMP.zip | grep "var/www/html"
+> 7z -l www_backup_$TIMESTAMP.zip | grep "var/www/html"
 > ```
 
 
