@@ -97,6 +97,8 @@ Located at `.../config/backup.php`, is the configuration file to manage the buil
   - **Password**: Set by default to use the `APP_KEY` variable from the `.env` file.
   - **Encryption**: Set by default to use the encryption helper.
 
+---
+
 ### Create a Backup
 To run a backup of your UNIT3D installation, navigate to your project directory and execute the Artisan backup command:
 
