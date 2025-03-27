@@ -28,6 +28,75 @@ This guide explains how to restore a UNIT3D backup on your server. It covers ins
 
 Built-in backups, located in `.../storage/backups/UNT3D`, offer an efficient way to migrate your development codebase to production by leveraging these backups directly. Simply pick one of the three most recent backups, copy it to your home directory, and retrieve your site master key from your `.env` file (the `APP_KEY`). Next, uncompress the backup using `p7zip` (you'll be prompted for the key) and extract any additional ZIP files (typically containing files and a database). Finally, restore the files to your server and manually import the database to ensure your server runs only the committed code.
 
+#### Managing your built-in backup routine
+
+Located at `.../config/backup.php`, is the configuration file to manage the built-in routine which can be modified to suit your needs.
+
+- **Name**:  The name of this application. You can use this name to monitor the backups.
+
+- **Source**: Set up as an associative array. Within you'll find a 'files' key with child keys detailed below.
+  - **Include**: The list of directories and files that will be included in the backup.
+  - **Exclude**: These directories and files will be excluded from the backup. Directories used by the backup process will automatically be excluded.
+
+- **Follow__links**: Determines if symlinks should be followed.
+
+- **Ignore_unreadable_directories**: Determines if it should avoid unreadable folders.
+
+- **Relative_path**: This path is used to make directories in resulting zip-file relative. Set to `null` to include complete absolute path
+  - Example: base_path()
+
+- **Databases**: The names of the connections to the databases that should be backed up MySQL, PostgreSQL, SQLite and Mongo databases are supported.
+  - The content of the database dump may be customized for each connectiony adding a 'dump' key to the connection settings in `.../config/database.php`.
+
+        'mysql' => [
+               ...
+              'dump' => [
+                   'excludeTables' => [
+                        'table_to_exclude_from_backup',
+                        'another_table_to_exclude'
+                    ]
+              ],
+          ],
+  - If you are using only InnoDB tables on a MySQL server, you can also supply the useSingleTransaction option to avoid table locking.
+
+        'mysql' => [
+               ...
+             'dump' => [
+                  'useSingleTransaction' => true,
+              ],
+        ],
+    For a complete list of available customization options, see: https://github.com/spatie/db-dumper
+  - **Database_dump_compressor**: The database dump can be compressed to decrease disk space usage. If you do not want any compressor at all, set it to null.
+      - Out of the box Laravel-backup supplies: `Spatie\DbDumper\Compressors\GzipCompressor::class`
+      - You can also create custom compressor. More info on that here: https://github.com/spatie/db-dumper#using-compression
+
+- **Destination**: Options to modify settings of destination archive/locations
+  - **Filename_prefix**: The filename prefix used for the backup zip file.
+  - **Disks**: The disk names on which the backups will be stored.
+
+- **Temporary_directory**: The directory where the temporary files will be stored.
+
+- **Notifications**: You can get notified when specific events occur. Out of the box you can use 'mail' and 'slack'.
+     - For Slack you need to install laravel/slack-notification-channel.
+     - You can also use your own notification classes, just make sure the class is named after one of the `Spatie\Backup\Events` classes.
+
+- **Notifiable**: Here you can specify the notifiable to which the notifications should be sent. The default notifiable will use the variables specified in this config file.
+  - The default configuration has available options for 'mail' and 'slack' preconfigured.
+
+- **Monitor_backups**: Here you can specify which backups should be monitored. If a backup does not meet the specified requirements the `UnHealthyBackupWasFound` event will be fired.
+
+- **Cleanup**: The strategy that will be used to cleanup old backups. The default strategy  will keep all backups for a certain amount of days. After that period only a daily backup will be kept. After that period only weekly backups will be kept and so on. No matter how you configure it the default strategy will never delete the newest backup.
+  - **Keep_all_backups_for_days**: The number of days for which backups must be kept.
+  - **Keep_daily_backups_for_days**: The number of days for which daily backups must be kept.
+  - **Keep_weekly_backups_for_weeks**: The number of weeks for which one weekly backup must be kept.
+  - **Keep_monthly_backups_for_months**: The number of months for which one monthly backup must be kept.
+  - **Keep_yearly_backups_for_years**: The number of years for which one yearly backup must be kept.
+  - **Delete_oldest_backups_when_using_more_megabytes_than**: After cleaning up the backups remove the oldest backup until this amount of megabytes has been reached.
+
+- **Security**: This option sets the encryption properties for the outer archive of your backups.
+  - **Password**: Set by default to use the `APP_KEY` variable from the `.env` file.
+  - **Encryption**: Set by default to use the encryption helper.
+
 ### Create a Backup
 To run a backup of your UNIT3D installation, navigate to your project directory and execute the Artisan backup command:
 
