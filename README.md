@@ -30,6 +30,8 @@ Built-in backups, located in `.../storage/backups/UNT3D`, offer an efficient way
 
 #### Managing your built-in backup routine
 
+You'll find the built-in backups dashboard link in the Staff dashboard menu or by navigating to `yourSite.tld/dashboard/backups`. This is the front-end management screen to give you a quick view into the status, health, size and, quantity of backups. Accross the top bar there are quick options to `Create Full Backup`, `Create Database Backup` and, `Create Files Backup` that enable running un-scheduled backups without the need to log into your server. Using this dashboard helps track whether the options set in the configuration do fulfill the requirements in just a glance.
+
 Located at `.../config/backup.php`, is the configuration file to manage the built-in routine which can be modified to suit your needs.
 
 - **Name**:  The name of this application. You can use this name to monitor the backups.
@@ -83,7 +85,7 @@ Located at `.../config/backup.php`, is the configuration file to manage the buil
 - **Notifiable**: Here you can specify the notifiable to which the notifications should be sent. The default notifiable will use the variables specified in this config file.
   - The default configuration has available options for 'mail' and 'slack' preconfigured.
 
-- **Monitor_backups**: Here you can specify which backups should be monitored. If a backup does not meet the specified requirements the `UnHealthyBackupWasFound` event will be fired.
+- **Monitor_backups**: Here you can specify which backups should be monitored. If a backup does not meet the specified requirements the `UnHealthyBackupWasFound` event will be fired. Here is where you can set both standard time period between backups and the maximum amount of storage to use before considering unhealthy.
 
 - **Cleanup**: The strategy that will be used to cleanup old backups. The default strategy  will keep all backups for a certain amount of days. After that period only a daily backup will be kept. After that period only weekly backups will be kept and so on. No matter how you configure it the default strategy will never delete the newest backup.
   - **Keep_all_backups_for_days**: The number of days for which backups must be kept.
