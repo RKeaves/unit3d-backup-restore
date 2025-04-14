@@ -30,6 +30,8 @@ Built-in backups, located in `.../storage/backups/UNT3D`, offer an efficient way
 
 #### Managing your built-in backup routine
 
+You'll find the built-in backups dashboard link in the Staff dashboard menu or by navigating to `yourSite.tld/dashboard/backups`. This is the front-end management screen to give you a quick view into the status, health, size and, quantity of backups. Accross the top bar there are quick options to `Create Full Backup`, `Create Database Backup` and, `Create Files Backup` that enable running un-scheduled backups with the need to log into your server. Using this dashboard helps track whether the options set in the configuration do fulfill the requirements in just a glance.
+
 Located at `.../config/backup.php`, is the configuration file to manage the built-in routine which can be modified to suit your needs.
 
 - **Name**:  The name of this application. You can use this name to monitor the backups.
